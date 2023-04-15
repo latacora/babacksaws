@@ -1,12 +1,12 @@
-(ns com.latacora.backsaws.credentials-providers
+(ns com.latacora.babacksaws.credentials-providers
   (:require [clojure.data.json :as json]
             [clojure.java.io :as io]
             [clojure.java.shell :as sh]
             [clojure.string :as str]
             [clojure.tools.logging :as log]
-            [cognitect.aws.config :as config]
-            [cognitect.aws.credentials :as creds]
-            [cognitect.aws.util :as u]))
+            [com.grzm.awyeah.config :as config]
+            [com.grzm.awyeah.credentials :as creds]
+            [com.grzm.awyeah.util :as u]))
 
 
 (set! *warn-on-reflection* true)
@@ -35,7 +35,7 @@
                            (u/getProperty "aws.profile")
                            "default")))
   ([profile]
-   (creds/cached-credentials-with-auto-refresh
+   (creds/cached-credentials
     (reify creds/CredentialsProvider
       (fetch [_]
         (let [creds (aws-vault-exec! profile)]
@@ -135,7 +135,7 @@
                                                           ".aws"
                                                           "config"))))
   ([profile-name ^java.io.File config-file]
-   (creds/cached-credentials-with-auto-refresh
+   (creds/cached-credentials
     (reify creds/CredentialsProvider
       (fetch [_]
         (when (.exists config-file)
@@ -156,8 +156,8 @@
               (log/error t "Error fetching credentials from credential_process")))))))))
 
 (comment
-  (require '[cognitect.aws.client.api :as aws]
-           '[cognitect.aws.region :as region])
+  (require '[com.grzm.awyeah.client.api :as aws]
+           '[com.grzm.awyeah.region :as region])
 
   (let [profile "sso.core-shared-dev.read-dev"
         rp (region/profile-region-provider profile)

@@ -1,4 +1,4 @@
-(ns com.latacora.backsaws.ini
+(ns com.latacora.babacksaws.ini
   (:require
    [clojure.java.io :as io]
    [instaparse.core :as insta]
@@ -13,7 +13,7 @@
   and = that are implicit in the parse tree. This is intentional. By capturing
   all strings, the resulting parse tree can be reserialized while maximally
   maintaining formatting: just concat all the strings."
-  (-> "ini.ebnf" io/resource insta/parser))
+  (-> "resources/ini.ebnf" slurp insta/parser))
 
 (def parse
   "Parses a string to an ini parse tree.

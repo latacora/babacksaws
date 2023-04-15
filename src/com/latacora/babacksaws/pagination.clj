@@ -1,6 +1,6 @@
-(ns com.latacora.backsaws.pagination
+(ns com.latacora.babacksaws.pagination
   (:require
-   [cognitect.aws.client.api :as aws]
+   [com.grzm.awyeah.client.api :as aws]
    [meander.epsilon :as m]
    [clojure.set :as set]))
 
